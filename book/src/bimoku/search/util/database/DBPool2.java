@@ -64,9 +64,9 @@ public class DBPool2 {
             con = DBPool2.getInstance().getConnection();  
             ResultSet rs = con.createStatement().executeQuery("SELECT * FROM t_book limit 0,10");  
             while (rs.next()) {  
-                System.out.println(rs.getObject(1));  
-                System.out.println(rs.getObject(2));  
-                System.out.println(rs.getObject(3));  
+            	System.out.println(rs.getObject(1)+"||"+rs.getObject(2)+"||"+
+            	rs.getObject(3)+"||"+rs.getObject(4)+"||"+rs.getObject(5)+"||"+
+            			rs.getObject(6)+"||"+rs.getObject(7));
             }  
         } catch (Exception e) {  
         	LogOutPut.outError(e.getMessage());

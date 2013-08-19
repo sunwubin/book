@@ -121,7 +121,9 @@ public class DBPool {
 	            while (rs.next()) {  
 	                System.out.println(rs.getObject(1));  
 	                System.out.println(rs.getObject(2));  
-	                System.out.println(rs.getObject(3));  
+	                System.out.println(rs.getObject(3)); 
+	                System.out.println(rs.getObject(4));
+	                System.out.println(rs.getObject(5));
 	            }  
 	        } catch (Exception e) {  
 	        	LogOutPut.outError(e.getMessage());
