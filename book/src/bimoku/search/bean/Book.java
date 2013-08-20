@@ -1,5 +1,10 @@
 package bimoku.search.bean;
 
-public class Book {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Book")
+public class Book implements Serializable {
 
 }

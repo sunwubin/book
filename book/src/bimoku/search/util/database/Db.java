@@ -17,7 +17,7 @@ public class Db {
 	 * @param sql
 	 * @return
 	 */
-	public List<HashMap<String,Object>> ExecuteQuery(Connection conn,String sql){
+	public static synchronized List<HashMap<String,Object>> ExecuteQuery(Connection conn,String sql){
 		List<HashMap<String,Object>> datas=null;
 		PreparedStatement sta=null;
 		ResultSet rs=null;
@@ -49,6 +49,8 @@ public class Db {
 			e.printStackTrace();
 		}finally{
 			
+			DBPool.close(conn, sta, rs);
+			
 		}
 		return datas;
 		
@@ -58,7 +60,7 @@ public class Db {
 	 * @param sql
 	 * @return
 	 */
-	public int ExecuteNonQuery(Connection conn,String sql){
+	public static synchronized int  ExecuteNonQuery(Connection conn,String sql){
 		int reNum=-1;
 		if(conn==null) {
 			conn=DBPool.getInstance().getConnection();
@@ -81,7 +83,7 @@ public class Db {
 	 * @param params
 	 * @return
 	 */
-	public int ExecuteNonQuery(Connection conn,String sql,Object[] params){
+	public static synchronized int ExecuteNonQuery(Connection conn,String sql,Object[] params){
 		int reNum=-1;
 		if(conn==null){
 			conn=DBPool.getInstance().getConnection();
@@ -109,7 +111,7 @@ public class Db {
 	 * @param params 参数
 	 * @return List<HashMap<String,Object>>
 	 */
-	public List<HashMap<String,Object>> ExecuteQuery(Connection conn,String sql,Object[] params){
+	public static synchronized List<HashMap<String,Object>> ExecuteQuery(Connection conn,String sql,Object[] params){
 		List<HashMap<String,Object>> datas=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
