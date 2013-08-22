@@ -77,6 +77,26 @@ public class Db {
 		return reNum;
 	}
 	
+	public static synchronized int  ExecuteQueryNum(Connection conn,String sql){
+		int reNum=-1;
+		ResultSet rs=null;
+		if(conn==null) {
+			conn=DBPool.getInstance().getConnection();
+		}
+		Statement stat=null;
+		try{
+			stat=conn.createStatement();
+			rs=stat.executeQuery(sql);
+			while(rs.next())
+			   reNum=rs.getInt(1);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBPool.close(conn, null, rs);
+		}
+		return reNum;
+	}
+	
 	/**
 	 * 
 	 * @param sql
