@@ -5,6 +5,7 @@ import java.util.List;
 
 import bimoku.search.util.database.DBPool2;
 import bimoku.search.util.database.Db;
+import bimoku.search.util.log.LogOutPut;
 
 /**
  * 获得各大网站中的产品数据
@@ -19,10 +20,9 @@ public class ReadWorker implements Runnable {
 	
 	private ProductEnum productEnum;
 
-	private int ddi=0,jdi=0,tbi=0,dbi=0,ami=0;
-	private int jdcount=0,ddcount=0,tbcount=0,dbcount=0,amcount=0;
-	
-	private int size=10;
+	private int ddi=0,jdi=0,tbi=0,dbi=0,ami=0,hdi=0;
+	private int jdcount=0,ddcount=0,tbcount=0,dbcount=0,amcount=0,hdcount=0;
+	private int size=15;
 	
 	public ReadWorker(){
 		
@@ -37,6 +37,17 @@ public class ReadWorker implements Runnable {
 		
 		while(true){
 			
+			if(Products.size()>=3000){
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					LogOutPut.outError(e.getMessage());
+					e.printStackTrace();
+				}
+				continue;
+			}
+			
+			System.out.println("需要取得链接");
 			switch(this.productEnum){
 			case DD:
 				ddcount=Db.ExecuteQueryNum(DBPool2.getInstance().getConnection(), "select count(*) from t_bookdd ");
@@ -50,12 +61,13 @@ public class ReadWorker implements Runnable {
 				}
 				break;
 			case JD:
-				jdcount=Db.ExecuteQueryNum(DBPool2.getInstance().getConnection(), "select count(*) from limit "+jdi+","+size);
-				if(jdcount>0){
-					List<HashMap<String,Object>> jdlist=Db.ExecuteQuery(DBPool2.getInstance().getConnection(), "select *,'JD' as TYPE from t_bookjd limit "+jdi+","+size);
+				jdcount=Db.ExecuteQueryNum(DBPool2.getInstance().getConnection(), "select count(*) from t_bookjd ");
+				if(jdcount>jdi){
+					List<HashMap<String,Object>> jdlist=Db.ExecuteQuery(DBPool2.getInstance().getConnection(), "select *,'TB' as TYPE from t_bookjd limit "+ddi+","+size);
 					for(int i=0;i<jdlist.size();i++){
 					    Products.add(jdlist.get(i));
 					}
+					jdi=jdi+size;
 				}
 				break;
 			case TB:
@@ -89,9 +101,21 @@ public class ReadWorker implements Runnable {
 					ami=ami+size;
 				}
 				break;
+			case HD:
+				hdcount=Db.ExecuteQueryNum(DBPool2.getInstance().getConnection(), "select count(*) from t_bookpub ");
+				if(hdcount>ami){
+					List<HashMap<String,Object>> hdlist=Db.ExecuteQuery(DBPool2.getInstance().getConnection(), "select *,'AM' as TYPE from t_bookpub limit "+ami+","+size);
+					for(int i=0;i<hdlist.size();i++){
+					    Products.add(hdlist.get(i));
+					}
+					hdi=hdi+size;
+				}
+				break;
 			default:
 				break;
 			}
+			
+			
 		   
 		}
 		

@@ -26,7 +26,7 @@ public class DBPool {
 	            // 设置初始连接池的大小！  
 	            dataSource.setInitialPoolSize(2);  
 	            // 设置连接池的最小值！   
-	            dataSource.setMinPoolSize(1);  
+	            dataSource.setMinPoolSize(2);  
 	            // 设置连接池的最大值！   
 	            dataSource.setMaxPoolSize(10);  
 	            // 设置连接池中的最大Statements数量！  

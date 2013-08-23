@@ -31,14 +31,14 @@ public class WriteWorker implements Runnable  {
 		while(true){
 			if(Products.size()==0){
 				try {
-					Thread.sleep(10);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {
 					LogOutPut.outError(e.getMessage());
 					e.printStackTrace();
 				}
 				continue;
 			}
-			for(int i=0;i<20;i++){
+			for(int i=0;i<25;i++){
 		    //  System.out.println(Products.size());
 		      HashMap<String,Object> list=(HashMap<String, Object>) Products.get_last();
 		     // System.out.println("读取="+list.get("ID").toString());

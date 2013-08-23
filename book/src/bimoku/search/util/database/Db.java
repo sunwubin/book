@@ -48,8 +48,8 @@ public class Db {
 			LogOutPut.outError(e.getMessage());
 			e.printStackTrace();
 		}finally{
-			
-			DBPool.close(conn, sta, rs);
+			//if(conn)
+			DBPool2.close(conn, sta, rs);
 			
 		}
 		return datas;
@@ -72,7 +72,7 @@ public class Db {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBPool.close(conn, null, null);
+			DBPool2.close(conn, null, null);
 		}
 		return reNum;
 	}
@@ -92,7 +92,7 @@ public class Db {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBPool.close(conn, null, rs);
+			DBPool2.close(conn, null, rs);
 		}
 		return reNum;
 	}
@@ -118,7 +118,7 @@ public class Db {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBPool.close(conn, ps, null);
+			DBPool2.close(conn, ps, null);
 		}
 		
 		return reNum;
@@ -161,7 +161,7 @@ public class Db {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBPool.close(conn, ps, rs);
+			DBPool2.close(conn, ps, rs);
 			}
 		return datas;
 	}

@@ -7,5 +7,5 @@ package bimoku.search.worker;
  */
 public enum ProductEnum {
 
-	 DD,DB,JD,TB,AM;
+	 DD,DB,JD,TB,AM,HD;
 }
