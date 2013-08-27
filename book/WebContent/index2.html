@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script>
+function getxmlhttp(){
+	var xmlhttp=null;
+	 try {
+         xmlhttp = new XMLHttpRequest();
+     } catch (e) {
+    	 try {
+    		 xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+    		 }
+    		 catch (e) {
+    		 xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+    		 }
+     }
+	return xmlhttp;
+}
+
+function ajax_Request(){
+	var xmlhttp=getxmlhttp();
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4&&xmlhttp.status==200){
+			//http响应已经完全接受到才调用
+			var Bodys = xmlhttp.responseText;
+			alert(Bodys);
+			//functionName(xmlhttp,obj);
+		}
+	};
+	xmlhttp.open("GET","http://localhost:8080/book/service/rest/book/query/list/1/15",true);
+	//xmlhttp.send(parameter);
+	xmlhttp.send();
+}
+
+ajax_Request();
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Context;
 
 import bimoku.search.bean.Book;
 import bimoku.search.dao.BookDao;
+import bimoku.search.dao.impl.BookDaoImpl;
 import bimoku.search.service.BookService;
 
 
@@ -48,18 +49,9 @@ public class BookServiceImpl implements BookService {
 	@GET
 	@Path("/query/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Book getBean(@PathParam("id") Integer id) {
-//		Book book=new Book();
-//		book.setId(id);
-//		BookDao bookDao=new BookDaoImpl();
-//		try {
-//			book=(Book)bookDao.query(book);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return book;
-		return null;
+	public String getBean(@PathParam("id") Integer id) {
+		System.out.println(id);
+		return bookDao.query(id);
 	}
 
 	@Override
@@ -78,22 +70,42 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@GET
-	@Path("/query/list")
+	@Path("/query/all")
 	@Produces("text/plain")
 	public String getBeans() {
 		return null;
 	}
 
+	
+	/**
+	 * 搜索相关图书
+	 * 1.按照图书名称搜索
+	 * 2.按照作者搜索
+	 * 
+	 */
 	@Override
 	@GET
-	@Path("/query/list/{id}/{size}")
+	@Path("/query/list/{startRow}/{rowSize}")
 	@Produces("application/json")
 	public String getBeans
-	(@PathParam("id") Integer id,
-			@PathParam("size") Integer size,
+	(@PathParam("startRow") Integer id,
+			@PathParam("rowSize") Integer size,
 			@Context HttpServletRequest servletRequest,
 			@Context HttpServletResponse servletResponse) {
-		return null;
+		String author=null;
+		String bookname=null;
+		author=servletRequest.getParameter("author");
+		bookname=servletRequest.getParameter("bookname");
+		
+		return bookDao.query("", 1, 2);
 	}
+	
+	public static void main(String[] args){
+		
+		System.out.println(new BookDaoImpl().query(2));
+	}
+	
+	
+	
 
 }

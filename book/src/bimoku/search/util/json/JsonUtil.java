@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class JsonUtil {
 	
@@ -23,11 +24,15 @@ public class JsonUtil {
 	public   static synchronized  String list_hashmap_json(List<HashMap<String,Object>> list){
 		if(list==null)
 			return null;
-		if(jsonArray==null){
-			jsonArray=new JSONArray();
-		}
+	
+		jsonArray=new JSONArray();
 		jsonArray.put(list);
-		return jsonArray.toString();
+		try {
+			return jsonArray.get(0).toString();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return "[]";
 	}
 	
 	

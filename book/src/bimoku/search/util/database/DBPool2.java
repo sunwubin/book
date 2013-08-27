@@ -61,7 +61,7 @@ public class DBPool2 {
 	}
 	  public final Connection getConnection() {  
 	        try {  
-	        	System.out.println("取得链接");
+	        	//System.out.println("取得链接");
 	            //return dataSource.getConnection();
 	        	return connections_list.getLast();
 	        } catch (Exception e) {  
@@ -89,7 +89,7 @@ public class DBPool2 {
 					try{
 						if(conn!=null){
 							connections_list.addFirst(conn);
-							System.out.println("连接池个数==========="+connections_list.size());
+							//System.out.println("连接池个数==========="+connections_list.size());
 						}
 					}catch(Exception e){
 						LogOutPut.outError(e.getMessage());

@@ -33,7 +33,7 @@ public interface BookService {
 	@GET
 	@Path("/query/{id}")
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	public Book getBean(
+	public String getBean(
 			@PathParam("id") Integer id
 			);
 	
@@ -54,17 +54,17 @@ public interface BookService {
 	
 	
 	@GET
-	@Path("/query/list")
+	@Path("/query/all")
 	@Produces("text/plain")
 	public String getBeans();
 	
 	
 	@GET
-	@Path("/query/list/{id}/{size}")
+	@Path("/query/list/{startRow}/{rowSize}")
 	@Produces("text/plain")
 	public String getBeans(
-			 @PathParam("id") Integer id,
-			 @PathParam("size") Integer size,
+			 @PathParam("startRow") Integer id,
+			 @PathParam("rowSize") Integer size,
 			 @Context HttpServletRequest servletRequest, 
 			 @Context HttpServletResponse servletResponse
 			 );
